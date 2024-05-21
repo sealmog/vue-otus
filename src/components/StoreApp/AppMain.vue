@@ -6,10 +6,6 @@ const products = ref([])
 
 const { data } = await axios.get('https://fakestoreapi.com/products')
 products.value = data
-
-// fetch('https://fakestoreapi.com/products')
-// .then((response) => response.json())
-// .then((data) => (products.value = data))
 </script>
 
 <template>

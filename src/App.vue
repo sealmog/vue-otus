@@ -1,8 +1,5 @@
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
-
-import MainPage from '@/components/MainPage.vue'
-// import DelayFunction from "./components/DelayFunction.vue";
+import MainPage from '@/components/StoreApp/AppMain.vue'
 </script>
 
 <template>
@@ -15,8 +12,6 @@ import MainPage from '@/components/MainPage.vue'
       <div>Loading...</div>
     </template>
   </Suspense>
-
-  <!-- <delay-function></delay-function> -->
 </template>
 
 <style lang="scss">
