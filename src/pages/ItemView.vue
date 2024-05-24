@@ -1,26 +1,43 @@
 <script setup>
-import axios from 'axios';
+import axios from 'axios'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-const products = ref([])
+const product = ref([])
+const loading = ref(false)
+const route = useRoute()
 
-const { data } = await axios.get('https://fakestoreapi.com/products')
-products.value = data
+const fetchProduct = async () => {
+  loading.value = true
+  const response = await axios.get(`https://fakestoreapi.com/products/${route.params.id}`)
+  loading.value = false
+  product.value = response.data
+}
+fetchProduct()
 </script>
 
 <template>
-  <div class="home">
-    <div class="products">
-      <div v-for="(product, index) in products" :key="index" class="product">
-        <div class="product-image" :style="{ backgroundImage: 'url(' + product.image + ')' }"></div>
-        <h4>{{ product.title }}</h4>
-        <p class="price">{{ product.price.toFixed(2) }}</p>
+  <div v-if="loading">
+    <div>Loading...</div>
+  </div>
+  <div v-else>
+    <div class="home">
+      <div class="products">
+        <div class="product">
+          <div
+            class="product-image"
+            :style="{ backgroundImage: 'url(' + product.image + ')' }"
+          ></div>
+          <h4>{{ product.title }}</h4>
+          <h6>{{ product.description }}</h6>
+          <p class="price">{{ product.price.toFixed(2) }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .home {
   .products {
     display: flex;
@@ -33,7 +50,7 @@ products.value = data
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       padding: 16px;
       margin: 8px;
-      height: 360px;
+      height: 660px;
 
       @media only screen and (max-width: 769px) {
         flex: 0 0 40%;
@@ -49,8 +66,8 @@ products.value = data
 
       .product-image {
         margin: 20px auto;
-        width: 160px;
-        height: 140px;
+        width: 360px;
+        height: 340px;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -58,6 +75,13 @@ products.value = data
       h4 {
         margin: 22px auto;
         font-size: 12px;
+        max-width: 60%;
+        font-weight: normal;
+      }
+
+      h6 {
+        margin: 22px auto;
+        font-size: 10px;
         max-width: 60%;
         font-weight: normal;
       }

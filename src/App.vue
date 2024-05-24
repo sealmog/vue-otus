@@ -1,17 +1,7 @@
-<script setup>
-import MainPage from '@/components/StoreApp/AppMain.vue'
-</script>
+<script setup></script>
 
 <template>
-  <Suspense>
-    <main>
-      <main-page></main-page>
-    </main>
-
-    <template #fallback>
-      <div>Loading...</div>
-    </template>
-  </Suspense>
+  <RouterView></RouterView>
 </template>
 
 <style lang="scss">
